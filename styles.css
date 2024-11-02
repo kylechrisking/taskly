@@ -1,49 +1,617 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+/* Base styles and reset */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #F5F7FA;
+    --accent-color: #50C878;
+    --danger-color: #FF6B6B;
+    --text-color: #2D3436;
+    --border-radius: 10px;
+}
+
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Container styling */
 .container {
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Header styling */
 h1 {
+    color: var(--primary-color);
     text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input group styling */
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    width: 100%;
 }
 
 #taskInput {
-    width: 70%;
-    padding: 10px;
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: var(--secondary-color);
+    min-width: 0;
+}
+
+#taskInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }
 
 #addTaskButton {
-    padding: 10px;
+    padding: 12px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 110px;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+#addTaskButton:hover {
+    background: #357ABD;
+    transform: translateY(-2px);
 }
 
+/* Task Items */
 li {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+    padding: 15px;
+    background: white;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid var(--primary-color);
+    gap: 10px;
+    transform-origin: top center;
+}
+
+li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.task-text {
+    flex: 1;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    min-width: 0;
+    padding-right: 10px;
+    margin-right: auto;
+}
+
+/* Button container and buttons */
+.button-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.checkmark {
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+.checkmark:hover {
+    transform: translateY(-2px) scale(1.1);
+}
+
+.undo-button {
+    color: #2196F3;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+.undo-button:hover {
+    transform: translateY(-2px) scale(1.1);
 }
 
 .delete-button {
-    margin-left: 10px;
-    color: red;
+    color: #f44336;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.delete-button:hover {
+    transform: scale(1.1);
+}
+
+/* Completed task styling */
+.completed {
+    background: #f8f8f8;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.completed .task-text {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.completed .checkmark {
+    display: none;
+}
+
+.completed .undo-button {
+    display: flex;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    body {
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    #addTaskButton {
+        width: 100%;
+    }
+}
+
+/* Context Menu Styles */
+.context-menu {
+    position: absolute;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    min-width: 150px;
+    z-index: 1000;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.context-menu.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.context-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.context-menu-item:hover {
+    background: var(--secondary-color);
+}
+
+.context-menu-item i {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+/* Section headers with new style */
+h2 {
+    color: var(--text-color);
+    margin: 35px 0 20px 0;
+    font-size: 1.5em;
+    font-weight: 500;
+    padding-bottom: 15px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+h2::after {
+    content: none;
+}
+
+h2:first-of-type {
+    color: var(--primary-color);
+}
+
+h2:last-of-type {
+    color: #666;
+}
+
+#completedTasks {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+/* Task list containers */
+#taskList, #completedTasks {
+    width: 100%;
+}
+
+/* Edit task input styling */
+.edit-task-input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--primary-color);
+    font-size: inherit;
+    padding: 2px 4px;
+    width: 100%;
+    outline: none;
+}
+
+/* Due date styling */
+.due-date {
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Date picker styling */
+.date-picker {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove bullet points from lists */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Label menu styling */
+.label-menu {
+    position: absolute;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    min-width: 150px;
+    z-index: 1000;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.label-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+    color: var(--text-color);
+}
+
+.label-item:hover {
+    background: var(--secondary-color);
+}
+
+/* Task label styling */
+.task-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    color: white;
+    margin: 0 4px;
+    gap: 4px;
+    cursor: default;
+}
+
+/* Style for the remove label menu item */
+.context-menu-item.remove-label {
+    color: #e74c3c; /* Red color for text */
+    border-top: 1px solid #eee;
+    margin-top: 4px;
+    padding-top: 8px;
+}
+
+.context-menu-item.remove-label i {
+    color: #e74c3c; /* Red color for icon */
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.context-menu-item.remove-label:hover {
+    background: #fff1f0; /* Light red background on hover */
+}
+
+/* Dark mode variables */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #F5F7FA;
+    --background-color: #ffffff;
+    --text-color: #2D3436;
+    --card-background: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+:root[data-theme='dark'] {
+    --primary-color: #5C9CE5;
+    --secondary-color: #2D3436;
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-background: #2d2d2d;
+    --border-color: #404040;
+}
+
+/* Top controls styling */
+.top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+/* Search container styling */
+.search-container {
+    position: relative;
+    flex: 1;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px 35px 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--card-background);
+    color: var(--text-color);
     font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    padding: 10px;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+[data-theme='dark'] .container {
+    background: rgba(45, 45, 45, 0.95);
+}
+
+[data-theme='dark'] li {
+    background: var(--card-background);
+    border-color: var(--primary-color);
+}
+
+[data-theme='dark'] #searchInput {
+    background: var(--card-background);
+    color: var(--text-color);
+}
+
+/* Task group styling */
+.task-group-header {
+    margin: 20px 0 10px 0;
+    padding: 10px;
+    background: var(--secondary-color);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.group-icon {
+    font-size: 1.2em;
+}
+
+.task-count {
+    margin-left: auto;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Adjust task margins within groups */
+.task-group-header + li {
+    margin-top: 10px;
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .task-group-header {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme='dark'] .task-count {
+    color: #999;
+}
+
+/* Add these animation keyframes to your CSS */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Add these classes for animations */
+.task-enter {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+.task-exit {
+    animation: slideOut 0.3s ease-out forwards;
+}
+
+.group-enter {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Update existing task styles */
+li {
+    /* ... existing styles ... */
+    transition: all 0.3s ease;
+    transform-origin: top center;
+}
+
+.task-group-header {
+    /* ... existing styles ... */
+    transition: all 0.3s ease;
+}
+
+/* Animation for completing tasks */
+.completed {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Task separator styling */
+.task-separator {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+    margin: 20px 0;
+    opacity: 0.3;
+}
+
+/* Adjust spacing around task groups */
+.task-group-header:first-of-type {
+    margin-top: 0;
+}
+
+li:not(:last-child) {
+    margin-bottom: 10px;
 }

@@ -5,13 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskly - To-Do List</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <h1>Taskly</h1>
-        <input type="text" id="taskInput" placeholder="Add a new task...">
-        <button id="addTaskButton">Add Task</button>
+        <div class="top-controls">
+            <button id="darkModeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button id="addTaskButton">Add Task</button>
+        </div>
+        <h2>Active Tasks</h2>
         <ul id="taskList"></ul>
+        <h2>Completed Tasks</h2>
+        <ul id="completedTasks"></ul>
+    </div>
+    <div class="context-menu">
+        <div class="context-menu-item">
+            <i class="fas fa-edit"></i>
+            Edit Task
+        </div>
+        <div class="context-menu-item">
+            <i class="fas fa-clock"></i>
+            Set Due Date
+        </div>
+        <div class="context-menu-item">
+            <i class="fas fa-tag"></i>
+            Add Label
+        </div>
+        <div class="context-menu-item">
+            <i class="fas fa-trash-alt"></i>
+            Delete Task
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
