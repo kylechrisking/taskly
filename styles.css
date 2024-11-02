@@ -615,3 +615,111 @@ li {
 li:not(:last-child) {
     margin-bottom: 10px;
 }
+
+/* Update the dark mode styles */
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --secondary-color: #2d2d2d;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Make sure task text is white in dark mode */
+body.dark-mode .task-text {
+    color: var(--text-color);
+}
+
+/* Update completed task text color in dark mode */
+body.dark-mode .completed .task-text {
+    color: #888;
+}
+
+/* Update headers in dark mode */
+body.dark-mode h1,
+body.dark-mode h2 {
+    color: var(--text-color);
+}
+
+/* Update input field in dark mode */
+body.dark-mode #taskInput {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid #444;
+}
+
+/* Update context menu in dark mode */
+body.dark-mode .context-menu {
+    background-color: var(--secondary-color);
+    border: 1px solid #444;
+}
+
+body.dark-mode .context-menu-item {
+    color: var(--text-color);
+}
+
+body.dark-mode .context-menu-item:hover {
+    background-color: #444;
+}
+
+/* Update input styling for dark mode */
+body.dark-mode input[type="text"] {
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+}
+
+/* Add placeholder color for dark mode */
+body.dark-mode input[type="text"]::placeholder {
+    color: #888;
+}
+
+/* Update only the task input styling for dark mode */
+body.dark-mode #taskInput {
+    color: white;
+}
+
+body.dark-mode #taskInput::placeholder {
+    color: #888;
+}
+
+/* Update the task input styling for dark mode */
+[data-theme='dark'] #taskInput {
+    color: white;
+    background-color: var(--secondary-color);
+}
+
+[data-theme='dark'] #taskInput::placeholder {
+    color: #888;
+}
+
+#stopwatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    display: none;
+}
+
+#stopwatch.hidden {
+    display: none;
+}
+
+#stopwatchDisplay {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#stopwatch button {
+    margin: 5px;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#stopwatch button:hover {
+    background: #357ABD;
+}

@@ -1,5 +1,13 @@
+const stopwatch = document.getElementById('stopwatch');
+
 // Load tasks from local storage when the page loads
 document.addEventListener('DOMContentLoaded', loadTasks);
+  // Hide the stopwatch by default
+  stopwatch.classList.add('hidden'); // Ensure it's hidden on page load
+   // Toggle stopwatch display
+   stopwatchToggle.addEventListener('click', function() {
+    stopwatch.classList.toggle('hidden'); // This should toggle the hidden class
+});
 
 // Add event listener for the "Add Task" button
 document.getElementById('addTaskButton').addEventListener('click', function() {
@@ -438,6 +446,14 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(!isDark);
     });
+
+    // Hide the stopwatch by default
+    stopwatch.classList.add('hidden');
+
+    // Toggle stopwatch display
+    stopwatchToggle.addEventListener('click', function() {
+        stopwatch.classList.toggle('hidden');
+    });
 });
 
 // Helper function to update theme icon
@@ -629,5 +645,8 @@ function getLabelIcon(label) {
     return icons[label] || '📝';
 }
 
-// Add this CSS for group headers
+// Hide the stopwatch by default
+document.addEventListener('DOMContentLoaded', function() {
+    stopwatch.classList.add('hidden'); // Ensure it's hidden on page load
+});
 
