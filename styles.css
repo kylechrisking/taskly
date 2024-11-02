@@ -697,7 +697,6 @@ body.dark-mode #taskInput::placeholder {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    display: none;
 }
 
 #stopwatch.hidden {

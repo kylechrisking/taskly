@@ -1,12 +1,70 @@
 const stopwatch = document.getElementById('stopwatch');
 
 // Load tasks from local storage when the page loads
-document.addEventListener('DOMContentLoaded', loadTasks);
-  // Hide the stopwatch by default
-  stopwatch.classList.add('hidden'); // Ensure it's hidden on page load
-   // Toggle stopwatch display
-   stopwatchToggle.addEventListener('click', function() {
-    stopwatch.classList.toggle('hidden'); // This should toggle the hidden class
+document.addEventListener('DOMContentLoaded', function() {
+    loadTasks(); // Load tasks first
+
+    const stopwatchToggle = document.getElementById('stopwatchToggle');
+    const stopwatch = document.getElementById('stopwatch');
+
+    // Ensure the elements are found
+    if (stopwatch && stopwatchToggle) {
+        stopwatch.classList.add('hidden'); // Hide by default
+
+        // Toggle stopwatch display
+        stopwatchToggle.addEventListener('click', function() {
+            console.log("Stopwatch toggle clicked"); // Check if this logs
+            stopwatch.classList.toggle('hidden'); // Toggle the hidden class
+
+            // Check if the stopwatch is hidden or visible
+            if (stopwatch.classList.contains('hidden')) {
+                console.log("Stopwatch is hidden");
+                stopwatch.style.display = 'none'; // Set display to none
+            } else {
+                console.log("Stopwatch is visible");
+                stopwatch.style.display = 'flex'; // Set display to flex
+            }
+        });
+    } else {
+        console.error("Stopwatch or toggle button not found.");
+    }
+
+    // Stopwatch functionality
+    let timer; // Variable to hold the timer
+    let elapsedTime = 0; // Time in seconds
+
+    // Function to update the stopwatch display
+    function updateStopwatchDisplay() {
+        const display = document.getElementById('stopwatchDisplay');
+        const hours = Math.floor(elapsedTime / 3600);
+        const minutes = Math.floor((elapsedTime % 3600) / 60);
+        const seconds = elapsedTime % 60;
+        display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // Start button functionality
+    document.getElementById('startStopwatch').addEventListener('click', function() {
+        if (!timer) { // Only start if not already running
+            timer = setInterval(function() {
+                elapsedTime++;
+                updateStopwatchDisplay();
+            }, 1000);
+        }
+    });
+
+    // Stop button functionality
+    document.getElementById('stopStopwatch').addEventListener('click', function() {
+        clearInterval(timer);
+        timer = null; // Reset timer variable
+    });
+
+    // Reset button functionality
+    document.getElementById('resetStopwatch').addEventListener('click', function() {
+        clearInterval(timer);
+        timer = null; // Reset timer variable
+        elapsedTime = 0; // Reset elapsed time
+        updateStopwatchDisplay(); // Update display to show 00:00:00
+    });
 });
 
 // Add event listener for the "Add Task" button
@@ -648,5 +706,41 @@ function getLabelIcon(label) {
 // Hide the stopwatch by default
 document.addEventListener('DOMContentLoaded', function() {
     stopwatch.classList.add('hidden'); // Ensure it's hidden on page load
+});
+
+let timer; // Variable to hold the timer
+let elapsedTime = 0; // Time in seconds
+
+// Function to update the stopwatch display
+function updateStopwatchDisplay() {
+    const display = document.getElementById('stopwatchDisplay');
+    const hours = Math.floor(elapsedTime / 3600);
+    const minutes = Math.floor((elapsedTime % 3600) / 60);
+    const seconds = elapsedTime % 60;
+    display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// Start button functionality
+document.getElementById('startStopwatch').addEventListener('click', function() {
+    if (!timer) { // Only start if not already running
+        timer = setInterval(function() {
+            elapsedTime++;
+            updateStopwatchDisplay();
+        }, 1000);
+    }
+});
+
+// Stop button functionality
+document.getElementById('stopStopwatch').addEventListener('click', function() {
+    clearInterval(timer);
+    timer = null; // Reset timer variable
+});
+
+// Reset button functionality
+document.getElementById('resetStopwatch').addEventListener('click', function() {
+    clearInterval(timer);
+    timer = null; // Reset timer variable
+    elapsedTime = 0; // Reset elapsed time
+    updateStopwatchDisplay(); // Update display to show 00:00:00
 });
 
