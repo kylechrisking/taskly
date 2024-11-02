@@ -22,11 +22,12 @@ Reduced Stress: By clearing the mental clutter of unorganized tasks, Taskly can 
 Customizable Workflow: Adapt the application to fit your unique work style with the flexible organization and categorization options.
 
 
-
+Start adding your tasks and experience the power of organization!
 
 Visit the developers website: https://rootlabs.us/
+
 Create a free account (not yet working!)
-Start adding your tasks and experience the power of organization!
+
 
 Looking for More?
 
